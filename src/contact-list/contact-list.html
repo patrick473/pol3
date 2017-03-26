@@ -1,0 +1,46 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../contact-form/contact-form.html">
+
+
+  <dom-module id="contact-list">
+    <template>
+    <style>
+      :host {
+        display: block;
+        background-color: grey;
+        padding: 15px;
+      }
+    </style>
+    <contact-form contact={{newContact}}></contact-form>
+    <h1>My Contacts</h1>
+    <template is="dom-repeat" items="[[contacten]]">
+      <div>{{index}} - {{item.naam}} : {{item.telnr}}</div>
+    </template>
+    <hr />
+  </template>
+  <script>
+  Polymer({
+    is: "contact-list",
+    properties: {
+      newContact: {
+        observer: 'contactChangeHandler'
+      },
+      contacten: {
+        value: [],
+        notify: true
+      }
+    },
+    contactChangeHandler: function() {
+      this.push('contacten', {
+        naam: this.newContact.naam,
+        telnr: this.newContact.telnr
+      }
+    );
+    for (var index=0; index < this.contacten.length; index++) {
+ console.log((index) + " - " + this.contacten[index].naam + " : " + this.contacten[index].telnr);
+ }
+ console.log("--------------");
+ }
+ });
+ </script>
+</dom-module>

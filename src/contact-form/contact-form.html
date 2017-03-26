@@ -1,0 +1,57 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+  <dom-module id="contact-form">
+
+    <iron-ajax id="ajax-contact-toevoegen"
+     method="POST"
+     url="/cgi-bin/contact-toevoegen.py"
+     handle-as="json"
+     on-response="contactToevoegen_ResponseHandler">
+     </iron-ajax>
+
+
+
+    <template>
+      <style>
+      :host {
+        display: block;
+        background-color: yellow;
+        padding: 15px;
+      }
+      paper-button {
+        background-color: green;
+        border: 1px;
+      }
+      </style>
+      <h1>My New Contact</h1>
+      <paper-input label="Geef je naam" value="{{naam}}"></paper-input>
+      <paper-input label="telefoon nummer" value="{{telnr}}"></paper-input>
+      <paper-button on-tap="contactToevoegen">Voeg contact toe</paper-button>
+    </template>
+ <script>
+  Polymer({
+    is: "contact-form",
+    properties: {
+      naam: String,
+      telnr: String,
+      contact: {
+        type: Object,
+        notify: true,
+      }
+    },
+    contactToevoegen: function() {
+      this.$.ajax-contact-toevoegen.contentType = "application/json";
+   this.$.ajax-contact-toevoegen.body = { naam: this.naam, telnr: this.telnr };
+   this.$.ajax-contact-toevoegen.generateRequest();
+   console.log( "Contact: "+ this.naam + ", " + this.telnr);
+ },
+       contactToevoegen_ResponseHandler: function(request_confirm) {
+         console.log("Response: " + request_confirm);
+        }
+    });
+  });
+  </script>
+</dom-module>

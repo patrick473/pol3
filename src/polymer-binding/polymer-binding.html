@@ -1,0 +1,42 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/vaadin-grid/vaadin-grid.html">
+
+<dom-module id="polymer-binding">
+	<template>
+		<style>
+		</style>
+ 		<h1>Lijst van Docenten</h1>
+		<vaadin-grid items="[[docenten]]" visible-rows="3">
+ <table>
+ <colgroup>
+ <col name="voornaam" resizable>
+ <col name="achternaam" sortable sort-direction="asc"
+resizable flex>
+ </colgroup>
+ </table>
+ 
+</vaadin-grid>
+
+ 	</template>
+ 	<script>
+ 		Polymer({
+ 			is: "polymer-binding",
+ 			properties: {
+ 				docenten: {
+ 				value : [
+ 					{voornaam: 'Jos', achternaam: 'Reenen, van'},
+ 					{voornaam: 'Dick', achternaam: 'Pronk'},
+ 					{voornaam: 'Rik', achternaam: 'Jansen'},
+ 					{voornaam: 'Bart', achternaam: 'Eijkelenburg,van'},
+ 					{voornaam: 'Jeroen', achternaam: 'Weber'}
+ 				]
+ 		}
+ 	},
+	ready: function() {
+	  this.push('docenten', {voornaam: 'John', achternaam:'Smeets'});
+	  this.splice('docenten',2,1);
+
+	},
+ 	});
+ 	</script>
+</dom-module>
